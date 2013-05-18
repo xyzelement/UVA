@@ -1,7 +1,9 @@
 //http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=3&page=show_problem&problem=36
+
 //basic version - works, time is .606
 //recursive solution             .605
 //unoptimized cache              .309
+//optimized cache                .216
 
 #include <iostream>
 #include <ext/hash_map>
@@ -9,17 +11,17 @@
 using namespace std;
 using namespace __gnu_cxx;
 
-hash_map<unsigned int, int> cache;
-
+typedef hash_map<unsigned int, int> cache_t;
+cache_t cache;
 
 int cycleLengthRecursive(unsigned int n) {
 
  
   if (n == 1) return 1;
   
-  
-  if (cache.find(n) != cache.end()) {
-    return cache[n];  
+  cache_t::iterator it = cache.find(n);
+  if (it != cache.end()) {
+    return it->second;  
   }
   
   
