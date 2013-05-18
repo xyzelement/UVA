@@ -1,12 +1,17 @@
 //http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=3&page=show_problem&problem=36
+//basic version - works, time is .606
+
 
 #include <iostream>
 using namespace std;
 
-int cycleLength(unsigned int n) {
+unsigned int cache[1000001];
+
+int cycleLengthSimple(unsigned int n) {
   int cycleLen = 1;
 
   while (n != 1) {
+  
     if (n % 2 == 1) n = (n*3) + 1;  // if n is odd then  n <- 3n + 1
     else            n = n/2;        // else n <- n/2
     
@@ -27,7 +32,7 @@ int maxCycleLength(int i, int j) {
   //loop from min to small and keep track of max
   int max = 0;
   for (int n=i; n<=j; ++n){
-    int c = cycleLength(n);
+    int c = cycleLengthSimple(n);
     if (c>max) max = c; 
   }
 
