@@ -7,18 +7,14 @@ using namespace std;
 
 unsigned int cache[1000001];
 
-int cycleLengthSimple(unsigned int n) {
-  int cycleLen = 1;
-
-  while (n != 1) {
+int cycleLengthRecursive(unsigned int n) {
+ 
+  if (n == 1) return 1;
   
-    if (n % 2 == 1) n = (n*3) + 1;  // if n is odd then  n <- 3n + 1
-    else            n = n/2;        // else n <- n/2
-    
-    ++cycleLen;
-  }
+  if (n % 2 == 1) n = (n*3) + 1;  // if n is odd then  n <- 3n + 1
+  else            n = n/2;        // else n <- n/2
 
-  return cycleLen;
+  return 1 + cycleLengthRecursive(n);
 }
 
 int maxCycleLength(int i, int j) {
@@ -32,7 +28,7 @@ int maxCycleLength(int i, int j) {
   //loop from min to small and keep track of max
   int max = 0;
   for (int n=i; n<=j; ++n){
-    int c = cycleLengthSimple(n);
+    int c = cycleLengthRecursive(n);
     if (c>max) max = c; 
   }
 
