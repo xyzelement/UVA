@@ -4,8 +4,6 @@
 using namespace std;
 
 int cycleLength(unsigned int n) {
-  static int cache[10000000]; //do i need to memset?
-
   int cycleLen = 1;
 
   while (n != 1) {
