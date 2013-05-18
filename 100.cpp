@@ -1,20 +1,35 @@
 //http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=3&page=show_problem&problem=36
 //basic version - works, time is .606
-
+//recursive solution             .605
+//unoptimized cache              .309
 
 #include <iostream>
-using namespace std;
+#include <ext/hash_map>
 
-unsigned int cache[1000001];
+using namespace std;
+using namespace __gnu_cxx;
+
+hash_map<unsigned int, int> cache;
+
 
 int cycleLengthRecursive(unsigned int n) {
+
  
   if (n == 1) return 1;
   
-  if (n % 2 == 1) n = (n*3) + 1;  // if n is odd then  n <- 3n + 1
-  else            n = n/2;        // else n <- n/2
+  
+  if (cache.find(n) != cache.end()) {
+    return cache[n];  
+  }
+  
+  
+  unsigned int n1;
+  if (n % 2 == 1) n1 = (n*3) + 1;  // if n is odd then  n <- 3n + 1
+  else            n1 = n/2;        // else n <- n/2
 
-  return 1 + cycleLengthRecursive(n);
+  int out = 1 + cycleLengthRecursive(n1);
+  cache[n] = out;
+  return out;
 }
 
 int maxCycleLength(int i, int j) {
